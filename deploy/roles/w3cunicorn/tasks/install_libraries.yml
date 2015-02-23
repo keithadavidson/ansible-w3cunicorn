@@ -1,0 +1,23 @@
+- name: Install libraries
+  apt: name={{ item }} state=latest
+  with_items:
+    - ant
+    - ivy
+    - tomcat7
+    - tomcat7-admin
+    - git
+    - mercurial
+    - default-jdk
+    - default-jre
+    - python-pip
+    - python
+  tags:
+    - w3cunicorn
+
+- name: Fix ivy setup for ant
+  file:
+    src: /usr/share/java/ivy.jar
+    dest: /usr/share/ant/lib/ivy.jar
+    state: link
+  tags:
+    - w3cunicorn

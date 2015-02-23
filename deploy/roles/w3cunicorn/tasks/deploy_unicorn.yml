@@ -1,0 +1,53 @@
+
+- name: checkout w3c-unicorn source
+  hg:
+    repo: "https://dvcs.w3.org/hg/unicorn"
+    dest: "/home/{{install_user}}/unicorn"
+    force: yes
+    purge: yes
+  tags:
+    - w3cunicorn
+
+- name: build unicorn.war
+  command: ant retrieve default_conf war
+  args:
+    chdir: "/home/{{install_user}}/unicorn"
+  tags:
+    - w3cunicorn
+
+- name: remove old unicorn.war if exists
+  file:
+    path: /var/lib/tomcat7/webapps/unicorn.war
+    state: absent
+  tags:
+    - w3cunicorn
+
+- name: remove old unicorn.war if exists
+  file:
+    path: /var/lib/tomcat7/webapps/unicorn
+    state: absent
+  tags:
+    - w3cunicorn
+
+- name: deploy unicorn.war to tomcat
+  command: "cp /home/{{install_user}}/unicorn/dist/unicorn.war /var/lib/tomcat7/webapps"
+  notify:
+    - restart tomcat7
+  tags:
+    - w3cunicorn
+
+- name: remove old unicorn.war if exists
+  file:
+    path: /var/lib/tomcat7/tomcat-users.xml
+    state: absent
+  tags:
+    - w3cunicorn
+
+- name: deploy tomcat users file
+  template:
+    src: tomcat-users.xml.j2
+    dest: "/etc/tomcat7/tomcat-users.xml"
+  notify:
+    - restart tomcat7
+  tags:
+    - w3cunicorn

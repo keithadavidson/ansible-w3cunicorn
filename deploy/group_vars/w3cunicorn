@@ -1,0 +1,32 @@
+#
+# Copyright (c) 2015 kdMake
+#
+# Created by Keith Davidson
+
+ansible_ssh_user: vagrant
+remote_user: vagrant
+local_sudo_user: root
+
+private_key_file: ~/.vagrant.d/insecure_private_key
+
+zone: local.domain
+
+# Application Git repo variables
+# only enable git_repo or git_local_repo
+#
+git_repo_local: /project_repo
+git_branch: HEAD
+
+# provider info
+provider: vagrant
+
+tomcat_user: admin
+tomcat_password: s3cret
+
+vagrant_nodes:
+  - name: validator
+    groups:
+      - w3cunicorn
+    ip: '192.168.3.90'
+    http: 9080
+    ssl: 9443
