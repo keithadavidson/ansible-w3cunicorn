@@ -25,9 +25,5 @@
 - include: deploy_unicorn.yml
 
 
-# apt-get tomcat7
-# apt-get tomcat7-admin
-# change /etc/tomcat7/tomcat-users.xml.j2
-# sudo ln -s -T /usr/share/java/ivy.jar /usr/share/ant/lib/ivy.jar
 
 
