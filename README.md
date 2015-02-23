@@ -13,6 +13,8 @@ The Ansible playbook defined under "deploy" does the following:
     - builds w3c-unicorn
     - configures tomcat7
 
+w3c-Unicorn is accessible in the vagrant setup at http://validator:8080/unicorn following deploy.
+
 ### Requirements
 
 - ansible
